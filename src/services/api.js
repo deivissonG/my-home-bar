@@ -20,7 +20,7 @@ export const getHomeDrinks = function (setHomeDrinks) {
     } }`
     console.log('aqui');
     fetchOptions.body = JSON.stringify({ query: query });
-    fetch('http://177.71.179.182:3000/graphql', fetchOptions).then(response => {
+    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
         if (response.status !== 200)
             return console.log('Something bad happened: ', response);
         response.json().then((data) => {
@@ -45,7 +45,7 @@ export const getCategoriesData = function (setCategories) {
     } }`
     console.log('aqui');
     fetchOptions.body = JSON.stringify({ query: query });
-    fetch('http://177.71.179.182:3000/graphql', fetchOptions).then(response => {
+    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
         if (response.status !== 200)
             return console.log('Something bad happened: ', response);
         response.json().then((data) => {
@@ -105,7 +105,7 @@ export const getCategoryData = function (setDrinks, path) {
 
 const fetchData = function (query, cb) {
     fetchOptions.body = JSON.stringify({ query });
-    fetch('http://177.71.179.182:3000/graphql', fetchOptions).then(response => {
+    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
         if (response.status !== 200)
             return console.log('Something bad happened: ', response);
         response.json().then(a => {

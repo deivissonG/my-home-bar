@@ -51,7 +51,6 @@ export const getSearchData = function (search) {
     
     console.log(search)
     return db.filter(drink => {
-        // console.log(drink.ingredients.find(ing => ing.toLowerCase().includes(search)))
         return drink.name.search(search) !== -1
             || drink.category.search(search) !== -1
             || drink.ingredients.find(ing => ing.toLowerCase().includes(search))

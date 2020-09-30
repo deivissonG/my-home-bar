@@ -13,7 +13,6 @@ export const DrinkPageStyle = styled.div`
         display: flex;
         flex-wrap: nowrap;
         align-items: center;
-        /* position: relative; */
         h2{
             display: inline-block;
             width: fit-content;
@@ -26,7 +25,7 @@ export const DrinkPageStyle = styled.div`
             text-align: left;
         }
         img{
-            width: 70vh;
+            /* width: 60vw; */
             max-width: 90%;
             position: absolute;
             z-index: -1;
@@ -45,7 +44,7 @@ export const DrinkPageStyle = styled.div`
                 position: relative;
             }
         }
-        @media only screen and (max-width: 500px){
+        @media only screen and (max-width: 600px){
             h2{
                 top: 10%;
             }
@@ -53,6 +52,10 @@ export const DrinkPageStyle = styled.div`
     }
 
     .ingredients, .instructions{
+        min-height:450px;
+        @media only screen and (max-width: 700px){
+            min-height:50px;        
+        }
         h3, p{
             display: flex;
             align-items: center;
@@ -60,7 +63,7 @@ export const DrinkPageStyle = styled.div`
             width: fit-content;
             max-width: 400px;
             padding: 8px 12px;
-            background-color: #eeea;
+            background-color: #eeee;
         }
         h3{
             margin: 20px 0;
@@ -70,5 +73,6 @@ export const DrinkPageStyle = styled.div`
         }
 
     }
+
 
 `

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 
 export default function Card({ drink }) {
     return (
-        <Link to={'drink/' + drink.id}>
+        <Link to={'/drink/' + drink.apiId}>
             <CardStyle>
                 <img src={drink.thumb} alt={drink.name.replace(/\W/g, '-')} />
                 <div>

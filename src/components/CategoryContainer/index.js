@@ -13,18 +13,18 @@ const showCategories = function (categories) {
     </CategoryContainerStyle>
 }
 
-//5
 const mapCategories = function (categories) {
-    return categories.map(elem => !elem ? undefined : (() => {
-        const name = elem === "Other/Unknown" ? elem.replace('/', ' / ') : elem;
-        const path = `/icons/${name.replace(/(\/)/g, '-')}.svg`;
-        return <Link to={`/category/${name.replace(/(\/)/g, '-').replace(/\s/g, '')}`} key={name || ""} replace>
-            <img alt={elem} src={path} />
-            <p>{name}</p>
-        </Link>
-    })());
+    if (categories)
+        return categories.map(elem => !elem ? undefined : (() => {
+            const name = elem === "Other/Unknown" ? elem.replace('/', ' / ') : elem;
+            const path = `${process.env.PUBLIC_URL}/icons/${name.replace(/(\/)/g, '-')}.svg`;
+            return <Link to={`/category/${name.replace(/(\/)/g, '-').replace(/\s/g, '')}`} key={name || ""} replace>
+                <img alt={elem} src={path} />
+                <p>{name}</p>
+            </Link>
+        })());
 }
 export default () => {
-    const {categories} = useContext(DrinksContext);
+    const { categories } = useContext(DrinksContext);
     return showCategories(categories)
 }

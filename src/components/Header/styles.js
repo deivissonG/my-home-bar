@@ -108,7 +108,7 @@ export const HeaderStyle = styled.header`
         }
     
     }
-    .login-btn{
+    .github-btn{
         ${hoverEffectPrimary};
         display: flex;
         flex-flow: row nowrap;

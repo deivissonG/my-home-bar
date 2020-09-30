@@ -1,118 +1,59 @@
-const fetchOptions = {
-    method: 'post',
-    headers: {
-        "Content-type": "application/json",
-        accept: "application/json"
-    },
+import db from './db.js';
+import categories from './categories.js';
+
+function addRandomNumber(list, number = 0) {
+    if (number === 0)
+        number = Math.floor(Math.random() * 403);
+    if (list.includes(number))
+        return addRandomNumber(list)
+    list.push(number);
+    return list
 }
 
 export const getHomeDrinks = function (setHomeDrinks) {
-    const query = `{
-        drinks(sort:"random", max_per_page:16, current_page:1){
-        results{
-          id
-          name
-          alcoholic
-          ingredients
-          category
-          thumb
+
+    const randomDrinks = (() => {
+        let ret = [];
+        let randomList = [];
+        for (let index = 0; index < 16; index++) {
+            randomList = addRandomNumber(randomList)
+            ret = [...ret, db[randomList[randomList.length - 1]]];
         }
-    } }`
-    console.log('aqui');
-    fetchOptions.body = JSON.stringify({ query: query });
-    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
-        if (response.status !== 200)
-            return console.log('Something bad happened: ', response);
-        response.json().then((data) => {
-            console.log(data.data.drinks.results)
-            setHomeDrinks(data.data.drinks.results)
-        });
-    })
+
+        return ret
+    })();
+
+    setHomeDrinks(randomDrinks);
+
 }
 
 export const getCategoriesData = function (setCategories) {
-    const query = `{ 
-        categories
-        drinks(sort:"random", max_per_page:16, current_page:1){
-        results{
-          id
-          name
-          alcoholic
-          ingredients
-          category
-          thumb
-        }
-    } }`
-    console.log('aqui');
-    fetchOptions.body = JSON.stringify({ query: query });
-    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
-        if (response.status !== 200)
-            return console.log('Something bad happened: ', response);
-        response.json().then((data) => {
-            setCategories(data.data.categories)
-        });
-    })
+    return setCategories(categories)
 }
 
-export const getDrinkInfo = function (id, setDrink){
-    const query = `{ 
-        drink(id:"${id}"){
-            id
-            name
-            alcoholic
-            measures
-            ingredients
-            instructions
-            category
-            thumb  
-        } 
-    }`
-    fetchData(query, setDrink)
+export const getDrinkInfo = function (id, callback) {
+    const result = db.find(e => e.apiId === id);
+    return callback(result, !result)
 }
 
-export const getAllDrinks = function (setDrinks){
-    const query = `{ 
-        drinks{
-          results{
-            id
-            name
-            alcoholic
-            ingredients
-            category
-            thumb
-          }
-      } 
-    }`
-    fetchData(query, setDrinks)
+export const getAllDrinks = function (setDrinks) {
+    return setDrinks(db);
 }
 
 export const getCategoryData = function (setDrinks, path) {
-    const query = `{ 
-        drinks(filter:"category", filter_param:"${path}"){
-          results{
-            id
-            name
-            alcoholic
-            ingredients
-            category
-            thumb
-          }
-      } 
-    }`
-
-    fetchData(query, setDrinks);
+    setDrinks(db.filter(drink => drink.category === path))
 }
 
-const fetchData = function (query, cb) {
-    fetchOptions.body = JSON.stringify({ query });
-    fetch('//177.71.179.182:3000/graphql', fetchOptions).then(response => {
-        if (response.status !== 200)
-            return console.log('Something bad happened: ', response);
-        response.json().then(a => {
-            
-            const retValue = !!a.data.drinks ? a.data.drinks.results : a.data.drink
-            console.log(retValue); 
-            cb(retValue)
-        });
+export const getSearchData = function (search) {
+    if (!search)
+        return
+    search = search.toLowerCase();
+    
+    console.log(search)
+    return db.filter(drink => {
+        // console.log(drink.ingredients.find(ing => ing.toLowerCase().includes(search)))
+        return drink.name.search(search) !== -1
+            || drink.category.search(search) !== -1
+            || drink.ingredients.find(ing => ing.toLowerCase().includes(search))
     })
 }

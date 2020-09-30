@@ -1,28 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, HeaderStyle, LogoSmall, CategoryDropDownButton } from './styles.js';
-import { ArrowDropDown, SystemUpdateAlt } from '@material-ui/icons';
+import { ArrowDropDown } from '@material-ui/icons';
 import Categories from '../CategoryContainer/'
 import * as handler from '../handler.js';
+import SearchInput from '../SearchInput/index.js';
 
 export default function (props) {
     
     const [DropDownTrigger, setDropDownTrigger] = useState(false);
-    const [SearchInputTrigger, setSearchInputTrigger] = useState(false);
-    const [window, setWindow] = useState({});
-
-    function getSize() {
-        return {
-            width: document.body.clientWidth || undefined,
-            height: document.body.clientHeight || undefined
-        };
-    }
 
     useEffect(() => {
         setDropDownTrigger(false)
-        setWindow(getSize())
-        document.body.onresize = () => setWindow(getSize());
-        setSearchInputTrigger(false);
     }, []);
 
     useEffect(() => {
@@ -37,27 +26,11 @@ export default function (props) {
         }
     }, [DropDownTrigger])
 
-    useEffect(() => {
-        if (SearchInputTrigger) {
-            document.body.onclick = function (e) {
-                if (!SearchInputTrigger) return;
-                const clicked = handler.findInputElem(e.target);
-                // if(!clicked) document.querySelector('.s-input').style.width = '0';
-                setSearchInputTrigger(!!clicked);
-            }
-        } else {
-            document.body.onclick = null;
-        }
-    }, [SearchInputTrigger])
 
     const categoryContainerHandle = () => {
         setDropDownTrigger(!DropDownTrigger);
     }
 
-
-    const inputBtnHandle = () => {
-        setSearchInputTrigger(!SearchInputTrigger);
-    }
 
     return <div>
         <HeaderStyle>
@@ -77,13 +50,10 @@ export default function (props) {
                     <ArrowDropDown />
                 </CategoryDropDownButton>
                 <div className='search'>
-                    {
-                        handler.showSearchInput(SearchInputTrigger, inputBtnHandle, window.width)
-                    }
+                    <SearchInput/>
                 </div>
-                <Link to="/login" className="login-btn">
-                    <p>Log In</p>
-                    <SystemUpdateAlt />
+                <Link to="/" className="github-btn">
+                    <p>See on GitHub</p>
                 </Link>
             </Container>
         </HeaderStyle>

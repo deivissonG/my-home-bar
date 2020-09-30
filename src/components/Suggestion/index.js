@@ -10,7 +10,7 @@ export default (props) => {
     return !homeDrinks[0] ?
         <></>
         : <SuggestionStyle>
-            <Link to={'drink/' + homeDrinks[0].id}>
+            <Link to={'drink/' + homeDrinks[0].apiId}>
                 <div>
                     <h2>Try it</h2>
                     <h1>

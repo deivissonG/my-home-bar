@@ -1,9 +1,7 @@
 import React from 'react';
 import { CategoryContainerStyle } from './styles.js'
 import { Search } from '@material-ui/icons';
-
-
-
+import SearchInput from './SearchInput/index.js';
 
 export const mapCategories = function (categories) {
     return categories.map(elem => !elem ? undefined : (() => {
@@ -28,12 +26,7 @@ export const showSearchInput = (showTextFields, inputBtnHandle, width) =>
         <button id="s-btn" onClick={() => inputBtnHandle()} >
             <Search  />
         </button>
-        : <div className={`row nowrap v-center`}>
-            <input id="s-input" type='text' value='' placeholder="Search something" readOnly></input>
-            <button id="s-btn" onClick={() => inputBtnHandle()}>
-                <Search  />
-            </button>
-        </div>
+        : <SearchInput/>
 
 export const findInputElem = target => {
     if(!target || target.id === "root") return false;

@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import * as api from '../../services/api.js';
 import { Container, Box } from './styles.js';
-import Card from '../Card/index.js'
+import Card from '../Card/index.js';
+import Header from '../Header/index.js';
 
 import { DrinksContext } from '../Context/Drinks'
 
@@ -44,20 +45,23 @@ export default (props) => {
         // eslint-disable-next-line
     }, [location])
 
-    return <Container>
-        <Box>
-            <h1>{location}</h1>
-            <div>
-                {
-                    drinks.map((drink, index) => {
-                        return index === 0 ?
-                            ''
-                            : <Card drink={drink} key={drink.name.replace(/\s/g, '').replace('/', '-')} path={drink.name.replace(/\s/g, '')} >
-                            </Card>
-                    })
-                }
-            </div>
-        </Box>
-    </Container>
+    return <>
+        <Header />
+        <Container>
+            <Box>
+                <h1>{location}</h1>
+                <div>
+                    {
+                        drinks.map((drink, index) => {
+                            return index === 0 ?
+                                ''
+                                : <Card drink={drink} key={drink.name.replace(/\s/g, '').replace('/', '-')} path={drink.name.replace(/\s/g, '')} >
+                                </Card>
+                        })
+                    }
+                </div>
+            </Box>
+        </Container>
+    </>
 
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CategoryContainerStyle } from './styles.js'
+import { CategoryContainerStyle } from './CategoryContainer/styles.js'
 import { Search } from '@material-ui/icons';
 import SearchInput from './SearchInput/index.js';
 

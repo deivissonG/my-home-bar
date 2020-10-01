@@ -10,13 +10,11 @@ import AllDrinks from './components/allDrinksPage';
 import DrinkPage from './components/DrinkPage';
 import SearchPage from './components/SearchPage';
 import DrinkContext from './components/Context/Drinks';
-import SearchInputContextProvider from './components/Context/SearchInput';
 
 function Routes() {
 
   return <BrowserRouter>
     <DrinkContext>
-      <SearchInputContextProvider>
       <Switch>
         <Route path='/category/:name' exact component={CategoryPage} />
         <Route path='/all' exact>
@@ -26,7 +24,6 @@ function Routes() {
         <Route path='/search/:query' exact component={SearchPage} />
         <Route path='/' component={Home} />
       </Switch>
-      </SearchInputContextProvider>
     </DrinkContext>
   </BrowserRouter>
 

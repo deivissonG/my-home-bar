@@ -52,9 +52,9 @@ export default function (props) {
                 <div className='search'>
                     <SearchInput/>
                 </div>
-                <Link to="/" className="github-btn">
+                <a href="https://deivissong.github.io/my-home-bar" className="github-btn">
                     <p>See on GitHub</p>
-                </Link>
+                </a>
             </Container>
         </HeaderStyle>
     </div>
